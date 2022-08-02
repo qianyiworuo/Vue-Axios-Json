@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript" src="script/vue.js"></script>
+    <script language="JavaScript">
+        window.onload=function (){
+            var vue = new Vue({
+                "el" : "#dHello",
+                "data":{
+                    msg:"Hello,Are you OK!",
+                    uname:"雷军"
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="dHello">
+<!--{{msg}}声明式渲染-->
+    <span>{{msg}}</span>
+<!--v-bind绑定元素属性，v-bind可以省略。  -->
+    <input type="button" :value="uname">
+</div>
+
+</body>
+</html>

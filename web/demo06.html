@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript" src="script/vue.js"></script>
+    <script language="JavaScript">
+        window.onload=function (){
+            var vue = new Vue({
+                "el" : "#dHello",
+                "data":{
+                    fruitList:[
+                        {fName:"苹果",price:5,fCount:100,remark:"苹果真好吃！"},
+                        {fName:"香蕉",price:6,fCount:200,remark:"香蕉真好吃！"},
+                        {fName:"西瓜",price:7,fCount:300,remark:"西瓜真好吃！"},
+                        {fName:"葡萄",price:8,fCount:400,remark:"葡萄真好吃！"},
+                        {fName:"橘子",price:9,fCount:500,remark:"橘子真好吃！"}
+                    ],
+                    msg:"Hello Vue!"
+                    //uname:"雷军"
+                },
+                "methods":{
+                    reverse:function (){
+                        this.msg = this.msg.split("").reverse().join("");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="dHello">
+<!--{{msg}}声明式渲染-->
+<!--<span>{{msg}}</span>-->
+<!--v-model双向绑定元素属性，:value可以省略；.trim去除首尾空格-->
+<!--    <input type="button" :value="msg">-->
+<!--    <input type="text" v-model="num"><br>-->
+<!--条件渲染：v-if与v-else之间不能有其他元素节点-->
+<!--条件渲染：v-show控制style属性中的disply是否展示，展示为show，不展示为none-->
+<!--    <input v-if="num%2 == 0" type="text" v-model="num">-->
+<!--    <span v-else="num%2 == 1">{{num}}</span>-->
+<!--列表迭代渲染:v-for-->
+    <table border="1" cellpadding="4" cellspacing="0">
+        <tr>
+            <th>名称</th>
+            <th>单价</th>
+            <th>库存</th>
+            <th>备注</th>
+        </tr>
+        <tr align="center" v-for="fruit in fruitList">
+            <td>{{fruit.fName}}</td>
+            <td>{{fruit.price}}</td>
+            <td>{{fruit.fCount}}</td>
+            <td>{{fruit.remark}}</td>
+        </tr>
+    </table><br>
+<!--事件驱动：v-on表示绑定点击事件，v-on可以省略成@click-->
+    <span>{{msg}}</span>
+<!--    <input type="button" value="反转" v-on:click="reverse"/>-->
+    <input type="button" value="反转" @click="reverse"/>
+</div>
+
+</body>
+</html>

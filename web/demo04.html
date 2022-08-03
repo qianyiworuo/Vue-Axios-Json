@@ -24,8 +24,10 @@
 <!--    <input type="button" :value="msg">-->
     <input type="text" v-model="num"><br>
 <!--条件渲染：v-if与v-else之间不能有其他元素节点-->
+<!--条件渲染：v-show控制style属性中的disply是否展示，展示为show，不展示为none-->
     <input v-if="num%2 == 0" type="text" v-model="num">
     <span v-else="num%2 == 1">{{num}}</span>
+
 </div>
 
 </body>

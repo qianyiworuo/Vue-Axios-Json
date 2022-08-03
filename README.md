@@ -35,3 +35,21 @@ Vue学习
     console.log(this.msg);
     console.log(document.getElementById("span").innerText);
     }
+Axios学习
+    1-1.客户端向服务器端异步发送普通参数值。
+        基本格式：axios().then().catch()
+        示例：
+        axios({
+            "method":"GET"/"POST",
+            "url":"...",
+            "params":{
+                //K:V
+                "uname":vue.uname,
+                "pwd":vue.pwd
+        }
+    }).then(function(value){
+            
+       }).catch(function(reason){
+            
+       })
+<img alt="img.png" src="img.png" title="成功回传"/>

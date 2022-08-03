@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript" src="script/vue.js"></script>
+    <script language="JavaScript" src="script/axios.js"></script>
+    <script language="JavaScript">
+        window.onload=function (){
+            var vue = new Vue({
+                "el" : "#dHello",
+                "data":{
+                    uname:"lina",
+                    pwd:"ok"
+                },
+                "methods":{
+                    axiosTest02:function (){
+                        axios({
+                            "method":"POST",
+                            "url":"axiosTest02.do",
+                            "data":{
+                                "uname":vue.uname,
+                                "pwd":vue.pwd
+                            }
+                        }).then(function (value){
+                            var data = value.data
+                            console.log(data);
+                            vue.uname = data.uname;
+                            vue.pwd = data.pwd;
+
+
+                        }).catch(function (reason){
+
+                        })
+                    }
+
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="dHello">
+    <input type="text" v-model="uname"><br>
+    <input type="text" v-model="pwd"><br>
+    <input type="button" value="确定" @click="axiosTest02">
+
+</div>
+
+</body>
+</html>

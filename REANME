@@ -1,0 +1,113 @@
+Vue学习
+    1.声明式渲染{{msg}}
+    2.v-model双向绑定元素属性，:value可以省略；.trim去除首尾空格；v-bind:单向绑定，可省略成:value
+    3.条件渲染：v-if与v-else之间不能有其他元素节点；
+      条件渲染：v-show控制style属性中的disply是否展示，展示为show，不展示为none。
+    4.列表迭代渲染:v-for
+    5.事件驱动：v-on表示绑定点击事件，v-on可以省略成@click，相关function写在"methods":{}中。
+    6.侦听函数，"watch":{}中。
+    7.//Vue对象生命周期
+    beforeCreate:function (){
+    console.log("***对象创建之前***");
+    console.log(this.msg);
+    },
+    created:function (){
+    console.log("***对象创建之后***");
+    console.log(this.msg);
+    },
+    //数据装载之前
+    beforeMount:function (){
+    console.log("***数据装载之前***");
+    console.log(document.getElementById("span").innerText);
+    },
+    mounted:function (){
+    console.log("***数据装载之后***");
+    console.log(document.getElementById("span").innerText);
+    },
+    beforeUpdate:function (){
+    console.log("***数据更新之前***");
+    console.log(this.msg);
+    console.log(document.getElementById("span").innerText);
+    },
+    updated:function (){
+    console.log("***数据更新之后***");
+    console.log(this.msg);
+    console.log(document.getElementById("span").innerText);
+    }
+Axios学习
+    1-1.客户端向服务器端异步发送普通参数值。
+        基本格式：axios().then().catch()
+        示例：
+        axios({
+            "method":"GET"/"POST",
+            "url":"...",
+            "params":{
+                //K:V
+                "uname":vue.uname,
+                "pwd":vue.pwd
+        }
+    }).then(function(value){
+
+       }).catch(function(reason){
+
+       })
+       后台servlet
+       @WebServlet("/axiosTest.do")
+       public class AxiosServletTest01 extends HttpServlet {
+           @Override
+           public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+               req.setCharacterEncoding("UTF-8");
+               String uname = req.getParameter("uname");
+               String pwd = req.getParameter("pwd");
+               System.out.println("uname:"+uname+"pwd:"+pwd);
+               res.setCharacterEncoding("UTF-8");
+               res.setContentType("text/html;charset=utf-8");
+               res.getWriter().write(uname+"_"+pwd);
+           }
+       }
+    1-2.客户端向服务器发送Json格式数据，服务器向客户端返回Json格式数据。
+        JSON：一种数据格式
+        示例：[{sid:"s001,age:18"},{sid:"s002",age:20}]
+        此时原"params"变为"data"
+        axios({
+                    "method":"GET"/"POST",
+                    "url":"...",
+                    "data":{
+                        //K:V
+                        "uname":vue.uname,
+                        "pwd":vue.pwd
+                }
+            }).then(function(value){
+                //服务器返回的数据，自动封装为object对象
+                //{uname: '零基礎', pwd: 'ljc'}
+                //如果返回的数据为字符串形式"..."，则需调用js中字符串与js对象互转的API：JSON.stringify()-->String与JSON.parse()-->Object
+                var data = value.data
+                console.log(data);
+
+               }).catch(function(reason){
+
+               })
+        后台：使用req.getReader()流读取
+        @WebServlet("/axiosTest02.do")
+        public class AxiosServletTest02 extends HttpServlet {
+            @Override
+            public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+                //客户端向服务器发送Json格式数据
+                StringBuffer stringBuffer = new StringBuffer();
+                BufferedReader reader = req.getReader();
+                String str = null;
+                while ((str = reader.readLine()) != null){
+                //存放到stringBuffer中
+                    StringBuffer buffer = stringBuffer.append(str);
+                }
+                 //将stringBuffer赋值给str
+                str = stringBuffer.toString();
+               //将str--->Java 对象即实体类对象(需要第三方jar:GSON)
+               Gson gson = new GsonBuilder().create();
+               User user = gson.fromJson(str, User.class);
+               //服务器向客户端返回Json格式数据
+               //将Java 对象即实体类对象用toJson()方法转化成JSON数据
+
+
+            }
+        }
